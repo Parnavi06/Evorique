@@ -14,7 +14,7 @@ import { CaseStudyModal } from './components/modals/CaseStudyModal';
 import { CapabilityModal } from './components/modals/CapabilityModal';
 import { ContactModal } from './components/modals/ContactModal';
 
-// Helper to calculate smooth fade opacities
+// Helper to calculate smooth fade opacities between keyframe thresholds
 function calcOpacity(p: number, start: number, peak1: number, peak2: number, end: number): number {
   if (p < start || p > end) return 0;
   if (p >= peak1 && p <= peak2) return 1;
@@ -23,13 +23,16 @@ function calcOpacity(p: number, start: number, peak1: number, peak2: number, end
 }
 
 export default function App() {
-  const { progress, scrollToProgress } = useSmoothScroll();
-  const camData = interpolateCamera(progress);
-
-  // Active modals
+  // Modal states
   const [caseStudyOpen, setCaseStudyOpen] = useState(false);
   const [selectedCapability, setSelectedCapability] = useState<string | null>(null);
   const [contactModalOpen, setContactModalOpen] = useState(false);
+
+  const isAnyModalOpen = caseStudyOpen || selectedCapability !== null || contactModalOpen;
+
+  // Smooth scroll controller
+  const { progress, scrollToProgress } = useSmoothScroll({ isModalOpen: isAnyModalOpen });
+  const camData = interpolateCamera(progress);
 
   // Calculate opacities for the 7 visual states
   const op1 = calcOpacity(progress, 0.0, 0.0, 0.10, 0.16);

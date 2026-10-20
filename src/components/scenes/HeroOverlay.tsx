@@ -13,22 +13,19 @@ export const HeroOverlay: React.FC<HeroOverlayProps> = ({ opacity, onExploreClic
       className="absolute inset-0 pointer-events-none flex flex-col justify-between p-8 sm:p-12 md:p-16 transition-opacity duration-300"
       style={{ opacity }}
     >
-      {/* Editorial Title Block */}
-      <div className="max-w-xl mt-10 sm:mt-16 md:mt-20">
-        <h1 className="font-editorial text-7xl sm:text-8xl md:text-9xl font-light tracking-tight text-[#1a1918] leading-[0.92]">
+      {/* Editorial Title Block - Clean, elegant, non-overlapping */}
+      <div className="max-w-md mt-8 sm:mt-12 md:mt-14">
+        <h1 className="font-editorial text-5xl sm:text-6xl md:text-7xl font-light tracking-tight text-[#1a1918] leading-[0.95]">
           Evorique
         </h1>
-        <p className="mt-6 text-xl sm:text-2xl text-[#383531] font-light leading-snug max-w-md">
+        <p className="mt-5 text-lg sm:text-xl text-[#33302c] font-light leading-snug">
           Digital products<br />
           for a more human future.
-        </p>
-        <p className="mt-4 text-xs sm:text-sm text-[#736d64] font-normal leading-relaxed max-w-sm">
-          An independent creative technology studio partnering with founders and product teams to craft enduring digital software and brand architecture.
         </p>
       </div>
 
       {/* Curved Arrow Annotation: "Zoom into the mark" */}
-      <div className="absolute right-[18%] sm:right-[26%] md:right-[30%] top-[38%] md:top-[36%] pointer-events-auto flex items-center">
+      <div className="absolute right-[18%] sm:right-[24%] md:right-[28%] top-[34%] md:top-[32%] pointer-events-auto flex items-center">
         <div className="relative group cursor-pointer" onClick={onExploreClick}>
           <svg className="w-24 h-16 text-[#2d2b28] drop-shadow-sm transition-transform duration-300 group-hover:scale-105" viewBox="0 0 100 60" fill="none">
             <path

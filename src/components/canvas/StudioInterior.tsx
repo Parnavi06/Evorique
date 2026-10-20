@@ -3,23 +3,21 @@ import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
 export function StudioInterior() {
-  const studioPlate = useTexture('/scenes/state_03_inside_studio.jpg');
-  const deskPlate = useTexture('/scenes/state_04_a_project.jpg');
   const laptopScreenTex = useTexture('/scenes/laptop_screen_content.jpg');
   const limestoneBump = useTexture('/textures/limestone_bump.png');
 
   // Materials
   const woodMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
-      color: '#baa68c',
-      roughness: 0.55,
-      metalness: 0.05
+      color: '#bfa78a',
+      roughness: 0.52,
+      metalness: 0.04
     });
   }, []);
 
   const aluminumMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
-      color: '#d4d4d4',
+      color: '#d6d6d6',
       roughness: 0.28,
       metalness: 0.88
     });
@@ -35,71 +33,138 @@ export function StudioInterior() {
 
   const limestoneMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
-      color: '#ded6c9',
-      roughness: 0.88,
-      metalness: 0.05,
+      color: '#dfd8cc',
+      roughness: 0.86,
+      metalness: 0.04,
       bumpMap: limestoneBump,
       bumpScale: 0.03
     });
   }, [limestoneBump]);
 
+  const glassMat = useMemo(() => {
+    return new THREE.MeshPhysicalMaterial({
+      color: '#f0f8f7',
+      transmission: 0.88,
+      opacity: 1,
+      transparent: true,
+      roughness: 0.08,
+      ior: 1.5,
+      thickness: 0.25
+    });
+  }, []);
+
+  const foliageMat = useMemo(() => {
+    return new THREE.MeshStandardMaterial({
+      color: '#344736',
+      roughness: 0.9
+    });
+  }, []);
+
   return (
     <group position={[0, 0, -16.0]}>
-      {/* Studio Interior Architectural Backdrop (State 03 Environment) */}
-      <mesh position={[0, 2.2, -5.2]}>
-        <planeGeometry args={[16, 10]} />
-        <meshBasicMaterial map={studioPlate} toneMapped={false} />
-      </mesh>
-
-      {/* Studio Polished Floor */}
-      <mesh position={[0, -0.3, 0]} receiveShadow>
+      {/* Studio Room Floor */}
+      <mesh position={[0, 0.35, 0]} receiveShadow>
         <boxGeometry args={[14, 0.2, 12]} />
         <primitive object={limestoneMat} attach="material" />
       </mesh>
 
-      {/* Close-Up Desk Architectural Backdrop for State 04 Transition */}
-      <mesh position={[0, 0.8, -1.8]}>
-        <planeGeometry args={[5.2, 3.4]} />
-        <meshBasicMaterial map={deskPlate} toneMapped={false} />
+      {/* Sweeping Limestone Arch Overhead Vault */}
+      <group position={[0, 3.2, 1.2]}>
+        <mesh rotation={[0, 0, Math.PI]} castShadow receiveShadow>
+          <torusGeometry args={[4.2, 0.55, 16, 32, Math.PI]} />
+          <primitive object={limestoneMat} attach="material" />
+        </mesh>
+      </group>
+
+      {/* Back Architectural Wall with Window Aperture */}
+      <mesh position={[0, 3.0, -3.8]} castShadow receiveShadow>
+        <boxGeometry args={[13, 5.5, 0.5]} />
+        <primitive object={limestoneMat} attach="material" />
       </mesh>
+
+      {/* Panoramic Window Framing External Nature */}
+      <mesh position={[0, 2.5, -3.5]}>
+        <planeGeometry args={[9.5, 3.6]} />
+        <primitive object={glassMat} attach="material" />
+      </mesh>
+
+      {/* Window Structural Mullions */}
+      <group position={[0, 2.5, -3.48]}>
+        <mesh position={[-3.1, 0, 0]}>
+          <boxGeometry args={[0.08, 3.6, 0.08]} />
+          <primitive object={darkAlumMat} attach="material" />
+        </mesh>
+        <mesh position={[0, 0, 0]}>
+          <boxGeometry args={[0.08, 3.6, 0.08]} />
+          <primitive object={darkAlumMat} attach="material" />
+        </mesh>
+        <mesh position={[3.1, 0, 0]}>
+          <boxGeometry args={[0.08, 3.6, 0.08]} />
+          <primitive object={darkAlumMat} attach="material" />
+        </mesh>
+      </group>
+
+      {/* Outside Trees Visible Through Window */}
+      <group position={[0, 1.0, -4.8]}>
+        <mesh position={[-2.8, 1.6, 0]}>
+          <coneGeometry args={[1.0, 3.2, 12]} />
+          <primitive object={foliageMat} attach="material" />
+        </mesh>
+        <mesh position={[2.8, 1.8, 0]}>
+          <coneGeometry args={[1.2, 3.5, 12]} />
+          <primitive object={foliageMat} attach="material" />
+        </mesh>
+      </group>
 
       {/* PHYSICAL WORKSTATION DESK */}
       <group position={[0, 0.05, 0]}>
-        {/* Wood Tabletop */}
+        {/* Natural Oak Tabletop */}
         <mesh position={[0, 0.45, 0]} castShadow receiveShadow>
-          <boxGeometry args={[3.4, 0.08, 1.8]} />
+          <boxGeometry args={[3.2, 0.08, 1.6]} />
           <primitive object={woodMat} attach="material" />
         </mesh>
 
         {/* Desk Pedestals */}
-        <mesh position={[-1.5, 0.22, 0]} castShadow>
-          <boxGeometry args={[0.08, 0.45, 1.5]} />
+        <mesh position={[-1.4, 0.22, 0]} castShadow>
+          <boxGeometry args={[0.08, 0.45, 1.4]} />
           <primitive object={woodMat} attach="material" />
         </mesh>
-        <mesh position={[1.5, 0.22, 0]} castShadow>
-          <boxGeometry args={[0.08, 0.45, 1.5]} />
+        <mesh position={[1.4, 0.22, 0]} castShadow>
+          <boxGeometry args={[0.08, 0.45, 1.4]} />
           <primitive object={woodMat} attach="material" />
         </mesh>
 
-        {/* Ceramic Mug */}
-        <mesh position={[-0.85, 0.54, 0.2]} castShadow>
-          <cylinderGeometry args={[0.045, 0.04, 0.09, 24]} />
+        {/* Ceramic Coffee Mug */}
+        <mesh position={[-0.8, 0.54, 0.18]} castShadow>
+          <cylinderGeometry args={[0.045, 0.04, 0.09, 20]} />
           <meshStandardMaterial color="#ebe6de" roughness={0.35} />
         </mesh>
 
-        {/* Drafting Pen & Notebook */}
-        <mesh position={[-0.45, 0.5, 0.25]} rotation={[0, 0.12, 0]} castShadow>
-          <boxGeometry args={[0.22, 0.015, 0.32]} />
+        {/* Drafting Notebook & Pen */}
+        <mesh position={[-0.42, 0.5, 0.22]} rotation={[0, 0.12, 0]} castShadow>
+          <boxGeometry args={[0.22, 0.015, 0.3]} />
           <meshStandardMaterial color="#ded7cc" roughness={0.8} />
         </mesh>
-        <mesh position={[-0.25, 0.51, 0.25]} rotation={[0, 0.18, 0]} castShadow>
-          <cylinderGeometry args={[0.005, 0.005, 0.16, 12]} />
+        <mesh position={[-0.22, 0.51, 0.22]} rotation={[0, 0.18, 0]} castShadow>
+          <cylinderGeometry args={[0.005, 0.005, 0.16, 10]} />
           <meshStandardMaterial color="#1a1918" metalness={0.8} roughness={0.2} />
         </mesh>
 
-        {/* 3D LAPTOP (PORTAL DESTINATION FOR STATE 04 & 05) */}
+        {/* Background Desk Monitor */}
+        <group position={[0.95, 0.72, -0.15]}>
+          <mesh position={[0, -0.12, 0]}>
+            <cylinderGeometry args={[0.015, 0.015, 0.25, 12]} />
+            <primitive object={aluminumMat} attach="material" />
+          </mesh>
+          <mesh position={[0, 0.1, 0]}>
+            <boxGeometry args={[0.8, 0.48, 0.03]} />
+            <primitive object={darkAlumMat} attach="material" />
+          </mesh>
+        </group>
+
+        {/* 3D LAPTOP (THE PORTAL DESTINATION FOR STATES 04 & 05) */}
         <group position={[0, 0.49, 0]}>
-          {/* Laptop Base (Chassis) */}
+          {/* Aluminum Laptop Base */}
           <mesh position={[0, 0.008, 0.08]} castShadow>
             <boxGeometry args={[0.54, 0.014, 0.38]} />
             <primitive object={aluminumMat} attach="material" />

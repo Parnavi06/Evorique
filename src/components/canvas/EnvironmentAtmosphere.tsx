@@ -6,54 +6,55 @@ export function EnvironmentAtmosphere() {
 
   return (
     <>
-      {/* Background color and atmospheric depth fog */}
-      <color attach="background" args={['#f6f2ea']} />
-      <fog attach="fog" args={['#f6f2ea', 12, 75]} />
+      {/* Background warm ivory sky color and atmospheric depth haze */}
+      <color attach="background" args={['#f6f1e8']} />
+      <fog attach="fog" args={['#f6f1e8', 14, 85]} />
 
-      {/* Ambient & Hemisphere Lighting */}
-      <ambientLight color="#fff8ee" intensity={0.8} />
-      <hemisphereLight
-        args={['#fffbf2', '#dcd4c6', 0.85]}
-      />
+      {/* Soft Ambient & Hemisphere Lighting */}
+      <ambientLight color="#fff8ee" intensity={0.85} />
+      <hemisphereLight args={['#fffdf7', '#ded5c5', 0.9]} />
 
       {/* Main Warm Directional Sunlight */}
       <directionalLight
         ref={dirLightRef}
-        position={[18, 24, 14]}
-        intensity={1.8}
-        color="#fff4e0"
+        position={[16, 26, 12]}
+        intensity={2.0}
+        color="#fff4df"
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         shadow-camera-near={1}
-        shadow-camera-far={80}
-        shadow-camera-left={-20}
-        shadow-camera-right={20}
-        shadow-camera-top={20}
-        shadow-camera-bottom={-20}
+        shadow-camera-far={85}
+        shadow-camera-left={-22}
+        shadow-camera-right={22}
+        shadow-camera-top={22}
+        shadow-camera-bottom={-22}
         shadow-bias={-0.0001}
       />
 
-      {/* Soft Secondary Sunlight for architectural rim highlights */}
+      {/* Gentle Rim Fill Light */}
       <directionalLight
-        position={[-12, 10, -10]}
-        intensity={0.65}
-        color="#ede7dc"
+        position={[-14, 12, -8]}
+        intensity={0.6}
+        color="#ede6db"
       />
 
-      {/* Distant Mountain Silhouettes on Horizon */}
-      <group position={[0, -0.6, -45]}>
-        <mesh position={[-25, 6, 0]}>
-          <coneGeometry args={[18, 14, 16]} />
-          <meshBasicMaterial color="#e2dacf" />
+      {/* Distant Sculptural Horizon Mountain Ridges in Soft Atmosphere */}
+      <group position={[0, -0.6, -55]}>
+        {/* Soft Ridge West */}
+        <mesh position={[-28, 4.5, 0]}>
+          <cylinderGeometry args={[22, 28, 8, 32]} />
+          <meshBasicMaterial color="#e5ded3" />
         </mesh>
-        <mesh position={[20, 8, -5]}>
-          <coneGeometry args={[22, 18, 16]} />
-          <meshBasicMaterial color="#dfd6c8" />
+        {/* Soft Ridge East */}
+        <mesh position={[26, 5.5, -4]}>
+          <cylinderGeometry args={[24, 30, 10, 32]} />
+          <meshBasicMaterial color="#dfd7cb" />
         </mesh>
-        <mesh position={[0, 10, -15]}>
-          <coneGeometry args={[32, 22, 16]} />
-          <meshBasicMaterial color="#dcd2c4" />
+        {/* Central Distant Ridge */}
+        <mesh position={[0, 7.0, -12]}>
+          <cylinderGeometry args={[34, 40, 12, 32]} />
+          <meshBasicMaterial color="#dcd4c7" />
         </mesh>
       </group>
     </>
