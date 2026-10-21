@@ -10,7 +10,7 @@ export function WaterSurface() {
   useMemo(() => {
     waterNormal.wrapS = THREE.RepeatWrapping;
     waterNormal.wrapT = THREE.RepeatWrapping;
-    waterNormal.repeat.set(12, 12);
+    waterNormal.repeat.set(14, 14);
     waterNormal.anisotropy = 16;
     waterNormal.generateMipmaps = true;
     waterNormal.colorSpace = THREE.NoColorSpace;
@@ -18,28 +18,36 @@ export function WaterSurface() {
 
   useFrame((_, delta) => {
     if (waterNormal) {
-      waterNormal.offset.x = (waterNormal.offset.x + delta * 0.012) % 1;
-      waterNormal.offset.y = (waterNormal.offset.y + delta * 0.007) % 1;
+      waterNormal.offset.x = (waterNormal.offset.x + delta * 0.014) % 1;
+      waterNormal.offset.y = (waterNormal.offset.y + delta * 0.008) % 1;
     }
   });
 
   return (
-    <mesh
-      ref={meshRef}
-      rotation={[-Math.PI / 2, 0, 0]}
-      position={[0, -0.65, 0]}
-      receiveShadow
-    >
-      <planeGeometry args={[220, 220, 64, 64]} />
-      <meshStandardMaterial
-        color="#5a8d88"
-        roughness={0.16}
-        metalness={0.12}
-        normalMap={waterNormal}
-        normalScale={new THREE.Vector2(0.18, 0.18)}
-        transparent
-        opacity={0.94}
-      />
-    </mesh>
+    <group position={[0, -0.62, 0]}>
+      {/* Primary Calm Turquoise Water Surface */}
+      <mesh
+        ref={meshRef}
+        rotation={[-Math.PI / 2, 0, 0]}
+        receiveShadow
+      >
+        <planeGeometry args={[260, 260, 64, 64]} />
+        <meshStandardMaterial
+          color="#528882"
+          roughness={0.14}
+          metalness={0.15}
+          normalMap={waterNormal}
+          normalScale={new THREE.Vector2(0.22, 0.22)}
+          transparent
+          opacity={0.94}
+        />
+      </mesh>
+
+      {/* Subsurface Water Depth Layer for Deep Light Absorption */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.1, 0]}>
+        <planeGeometry args={[260, 260]} />
+        <meshBasicMaterial color="#3b6b66" />
+      </mesh>
+    </group>
   );
 }

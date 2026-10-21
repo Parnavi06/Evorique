@@ -3,19 +3,19 @@ import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
 export function LimestoneRing() {
-  // Load High-Resolution PBR Texture Set
+  // Load High-Resolution 1024x1024 PBR Texture Set
   const [limestoneDiffuse, limestoneNormal, limestoneRoughness] = useTexture([
     '/textures/limestone_diffuse.jpg',
     '/textures/limestone_normal.jpg',
     '/textures/limestone_roughness.jpg',
   ]);
 
-  // Configure anisotropic filtering & color spaces
+  // Configure textures
   useMemo(() => {
     [limestoneDiffuse, limestoneNormal, limestoneRoughness].forEach((tex) => {
       tex.wrapS = THREE.RepeatWrapping;
       tex.wrapT = THREE.RepeatWrapping;
-      tex.repeat.set(4, 4);
+      tex.repeat.set(5, 5);
       tex.anisotropy = 16;
       tex.generateMipmaps = true;
     });
@@ -24,28 +24,28 @@ export function LimestoneRing() {
     limestoneRoughness.colorSpace = THREE.NoColorSpace;
   }, [limestoneDiffuse, limestoneNormal, limestoneRoughness]);
 
-  // Warm Limestone PBR Material
+  // High-End Limestone PBR Material
   const limestoneMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
       map: limestoneDiffuse,
       normalMap: limestoneNormal,
       roughnessMap: limestoneRoughness,
-      normalScale: new THREE.Vector2(0.35, 0.35),
-      color: '#f4ede4',
-      roughness: 0.84,
+      normalScale: new THREE.Vector2(0.38, 0.38),
+      color: '#f3ece2',
+      roughness: 0.82,
       metalness: 0.02
     });
   }, [limestoneDiffuse, limestoneNormal, limestoneRoughness]);
 
-  // Accent Trim Limestone Material
+  // Accent / Trim Limestone Material
   const limestoneTrimMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
       map: limestoneDiffuse,
       normalMap: limestoneNormal,
       roughnessMap: limestoneRoughness,
-      normalScale: new THREE.Vector2(0.45, 0.45),
+      normalScale: new THREE.Vector2(0.48, 0.48),
       color: '#ded4c5',
-      roughness: 0.88,
+      roughness: 0.86,
       metalness: 0.03
     });
   }, [limestoneDiffuse, limestoneNormal, limestoneRoughness]);
@@ -53,181 +53,250 @@ export function LimestoneRing() {
   // Silhouette Figure Material
   const darkFigureMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
-      color: '#242220',
-      roughness: 0.9,
-      metalness: 0.08
+      color: '#22201e',
+      roughness: 0.92,
+      metalness: 0.05
     });
   }, []);
 
-  // Cypress Foliage Material
-  const foliageMat = useMemo(() => {
-    return new THREE.MeshStandardMaterial({
-      color: '#3d4f3e',
-      roughness: 0.92,
-      metalness: 0.0
-    });
-  }, []);
+  // Multi-tone Realistic Foliage Materials
+  const foliageMat1 = useMemo(() => new THREE.MeshStandardMaterial({ color: '#384c39', roughness: 0.9 }), []);
+  const foliageMat2 = useMemo(() => new THREE.MeshStandardMaterial({ color: '#445b45', roughness: 0.9 }), []);
+  const foliageMat3 = useMemo(() => new THREE.MeshStandardMaterial({ color: '#2b3a2c', roughness: 0.95 }), []);
 
   return (
     <group position={[0, 0, 0]}>
       {/* ============================================================ */}
-      {/* STATE 01: HERO ISLAND & CONCENTRIC TERRACES */}
+      {/* STATE 01: ARCHITECTURAL PROMONTORY ISLAND & TERRACED PLAZA */}
       {/* ============================================================ */}
 
-      {/* Main Island Promontory Base */}
-      <mesh position={[0, -0.45, 0]} receiveShadow>
-        <cylinderGeometry args={[13.5, 15.5, 0.9, 64]} />
+      {/* Underwater Island Foundation Shelf */}
+      <mesh position={[0, -0.65, 0]} receiveShadow>
+        <cylinderGeometry args={[15.0, 16.5, 0.7, 64]} />
         <primitive object={limestoneTrimMat} attach="material" />
       </mesh>
 
-      {/* Tier 1 Terrace Platform */}
-      <mesh position={[0, 0.05, 0]} receiveShadow>
-        <cylinderGeometry args={[8.8, 9.6, 0.28, 64]} />
+      {/* Main Island Seawall Platform */}
+      <mesh position={[0, -0.35, 0]} receiveShadow>
+        <cylinderGeometry args={[13.2, 14.2, 0.55, 64]} />
+        <primitive object={limestoneTrimMat} attach="material" />
+      </mesh>
+
+      {/* Lower Promenade Terrace */}
+      <mesh position={[0, 0.02, 0]} receiveShadow>
+        <cylinderGeometry args={[9.5, 10.2, 0.22, 64]} />
         <primitive object={limestoneMat} attach="material" />
       </mesh>
 
-      {/* Tier 2 Terrace Platform */}
-      <mesh position={[0, 0.25, 0]} receiveShadow>
-        <cylinderGeometry args={[5.6, 6.2, 0.22, 64]} />
+      {/* Mid Promenade Terrace */}
+      <mesh position={[0, 0.22, 0]} receiveShadow>
+        <cylinderGeometry args={[6.2, 6.8, 0.20, 64]} />
         <primitive object={limestoneMat} attach="material" />
       </mesh>
 
-      {/* Tier 3 Ring Base Platform */}
-      <mesh position={[0, 0.40, 0]} receiveShadow>
-        <cylinderGeometry args={[3.4, 3.8, 0.16, 48]} />
+      {/* Upper Monument Plaza Terrace */}
+      <mesh position={[0, 0.38, 0]} receiveShadow>
+        <cylinderGeometry args={[3.8, 4.2, 0.16, 48]} />
         <primitive object={limestoneMat} attach="material" />
       </mesh>
 
-      {/* Low Curved Parapet Walls around Terrace */}
-      <group position={[0, 0.25, 0]}>
-        <mesh position={[-4.5, 0.25, 2.5]} rotation={[0, 0.6, 0]} receiveShadow>
-          <boxGeometry args={[3.5, 0.45, 0.35]} />
+      {/* Curved Perimeter Stone Balustrades / Parapet Benches */}
+      <group position={[0, 0.22, 0]}>
+        <mesh position={[-4.8, 0.25, 2.6]} rotation={[0, 0.55, 0]} receiveShadow castShadow>
+          <boxGeometry args={[4.2, 0.45, 0.38]} />
           <primitive object={limestoneTrimMat} attach="material" />
         </mesh>
-        <mesh position={[4.5, 0.25, 2.5]} rotation={[0, -0.6, 0]} receiveShadow>
-          <boxGeometry args={[3.5, 0.45, 0.35]} />
+        <mesh position={[4.8, 0.25, 2.6]} rotation={[0, -0.55, 0]} receiveShadow castShadow>
+          <boxGeometry args={[4.2, 0.45, 0.38]} />
           <primitive object={limestoneTrimMat} attach="material" />
         </mesh>
       </group>
 
       {/* ============================================================ */}
       {/* THE ARCHITECTURAL RING ("The Mark") */}
+      {/* Sculptural Monument Standing at Z = 0 */}
       {/* ============================================================ */}
-      <group position={[0, 2.1, 0]} castShadow receiveShadow>
+      <group position={[0, 2.15, 0]} castShadow receiveShadow>
         {/* Main Beveled Ring Torus */}
         <mesh castShadow receiveShadow>
-          <torusGeometry args={[2.0, 0.42, 32, 64]} />
+          <torusGeometry args={[2.0, 0.44, 32, 64]} />
           <primitive object={limestoneMat} attach="material" />
         </mesh>
 
         {/* Outer Accent Rim */}
         <mesh position={[0, 0, 0]} castShadow receiveShadow>
-          <torusGeometry args={[2.42, 0.08, 16, 64]} />
+          <torusGeometry args={[2.44, 0.08, 16, 64]} />
           <primitive object={limestoneTrimMat} attach="material" />
         </mesh>
 
-        {/* Ring Base Support Pillars / Clamps */}
-        <mesh position={[-1.75, -1.6, 0]} castShadow receiveShadow>
-          <boxGeometry args={[0.85, 0.8, 0.95]} />
-          <primitive object={limestoneMat} attach="material" />
+        {/* Inner Chamfer Rim */}
+        <mesh position={[0, 0, 0]} castShadow receiveShadow>
+          <torusGeometry args={[1.56, 0.06, 16, 64]} />
+          <primitive object={limestoneTrimMat} attach="material" />
         </mesh>
-        <mesh position={[1.75, -1.6, 0]} castShadow receiveShadow>
-          <boxGeometry args={[0.85, 0.8, 0.95]} />
-          <primitive object={limestoneMat} attach="material" />
-        </mesh>
+
+        {/* Sturdy Limestone Foundation Clamps / Pedestals */}
+        <group position={[-1.75, -1.65, 0]} castShadow receiveShadow>
+          <mesh position={[0, 0, 0]}>
+            <boxGeometry args={[0.9, 0.85, 1.0]} />
+            <primitive object={limestoneMat} attach="material" />
+          </mesh>
+          <mesh position={[0, -0.38, 0]}>
+            <boxGeometry args={[1.05, 0.16, 1.15]} />
+            <primitive object={limestoneTrimMat} attach="material" />
+          </mesh>
+        </group>
+
+        <group position={[1.75, -1.65, 0]} castShadow receiveShadow>
+          <mesh position={[0, 0, 0]}>
+            <boxGeometry args={[0.9, 0.85, 1.0]} />
+            <primitive object={limestoneMat} attach="material" />
+          </mesh>
+          <mesh position={[0, -0.38, 0]}>
+            <boxGeometry args={[1.05, 0.16, 1.15]} />
+            <primitive object={limestoneTrimMat} attach="material" />
+          </mesh>
+        </group>
       </group>
 
-      {/* Silhouette Figure Standing in Front of the Mark */}
-      <group position={[0, 0.52, 1.45]} rotation={[0, Math.PI, 0]}>
-        <mesh position={[0, 0.72, 0]}>
+      {/* PROPORTIONAL ARCHITECTURAL HUMAN SILHOUETTE */}
+      <group position={[0, 0.48, 1.55]} rotation={[0, Math.PI, 0]}>
+        {/* Soft Contact Shadow Decal on Stone Floor */}
+        <mesh position={[0, 0.005, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+          <circleGeometry args={[0.24, 16]} />
+          <meshBasicMaterial color="#000000" transparent opacity={0.25} />
+        </mesh>
+        {/* Head */}
+        <mesh position={[0, 0.76, 0]}>
           <sphereGeometry args={[0.07, 16, 16]} />
           <primitive object={darkFigureMat} attach="material" />
         </mesh>
-        <mesh position={[0, 0.38, 0]}>
-          <cylinderGeometry args={[0.08, 0.14, 0.55, 16]} />
+        {/* Torso & Long Coat Tailored Silhouette */}
+        <mesh position={[0, 0.42, 0]}>
+          <cylinderGeometry args={[0.08, 0.14, 0.58, 16]} />
           <primitive object={darkFigureMat} attach="material" />
         </mesh>
+        {/* Legs */}
         <mesh position={[-0.045, 0.08, 0]}>
-          <cylinderGeometry args={[0.035, 0.035, 0.22, 12]} />
+          <cylinderGeometry args={[0.035, 0.035, 0.22, 10]} />
           <primitive object={darkFigureMat} attach="material" />
         </mesh>
         <mesh position={[0.045, 0.08, 0]}>
-          <cylinderGeometry args={[0.035, 0.035, 0.22, 12]} />
+          <cylinderGeometry args={[0.035, 0.035, 0.22, 10]} />
           <primitive object={darkFigureMat} attach="material" />
         </mesh>
       </group>
 
       {/* ============================================================ */}
-      {/* STATE 02: INNER COURTYARD & TERRACE PATH */}
+      {/* STATE 02: INNER COURTYARD & STEPPED ARCHITECTURAL CORRIDOR */}
+      {/* Spatially nested directly through the ring opening (Z = -2 to -8) */}
       {/* ============================================================ */}
-      <group position={[0, 0, -4.5]}>
+      <group position={[0, 0, -4.8]}>
         {/* Courtyard Walkway Stone Floor */}
-        <mesh position={[0, 0.28, 0]} receiveShadow>
-          <boxGeometry args={[5.8, 0.3, 8.5]} />
+        <mesh position={[0, 0.26, 0]} receiveShadow>
+          <boxGeometry args={[6.2, 0.32, 9.2]} />
           <primitive object={limestoneMat} attach="material" />
         </mesh>
 
-        {/* Stepped Promenade leading up through the courtyard */}
-        {Array.from({ length: 6 }).map((_, i) => (
-          <mesh key={i} position={[0, 0.35 + i * 0.09, -0.8 - i * 0.55]} receiveShadow>
-            <boxGeometry args={[4.2 - i * 0.1, 0.12, 0.6]} />
+        {/* Stepped Promenade leading up toward the studio */}
+        {Array.from({ length: 7 }).map((_, i) => (
+          <mesh key={i} position={[0, 0.32 + i * 0.09, -0.6 - i * 0.58]} receiveShadow>
+            <boxGeometry args={[4.4 - i * 0.1, 0.12, 0.65]} />
             <primitive object={limestoneMat} attach="material" />
           </mesh>
         ))}
 
-        {/* Left Colonnade Arch Structure */}
-        <group position={[-2.6, 1.6, 0]} castShadow receiveShadow>
+        {/* Left Colonnade Archways */}
+        <group position={[-2.8, 1.7, 0]} castShadow receiveShadow>
           <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[0.6, 3.2, 8.0]} />
+            <boxGeometry args={[0.65, 3.4, 8.8]} />
             <primitive object={limestoneMat} attach="material" />
           </mesh>
-          {[-2.5, 0, 2.5].map((z, idx) => (
-            <mesh key={idx} position={[0.31, 0.2, z]} rotation={[0, Math.PI / 2, 0]}>
-              <cylinderGeometry args={[0.8, 0.8, 0.2, 16]} />
+          {[-2.6, 0, 2.6].map((z, idx) => (
+            <mesh key={idx} position={[0.33, 0.2, z]} rotation={[0, Math.PI / 2, 0]}>
+              <cylinderGeometry args={[0.85, 0.85, 0.2, 20]} />
               <primitive object={limestoneTrimMat} attach="material" />
             </mesh>
           ))}
         </group>
 
-        {/* Right Colonnade Arch Structure */}
-        <group position={[2.6, 1.6, 0]} castShadow receiveShadow>
+        {/* Right Colonnade Archways */}
+        <group position={[2.8, 1.7, 0]} castShadow receiveShadow>
           <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[0.6, 3.2, 8.0]} />
+            <boxGeometry args={[0.65, 3.4, 8.8]} />
             <primitive object={limestoneMat} attach="material" />
           </mesh>
-          {[-2.5, 0, 2.5].map((z, idx) => (
-            <mesh key={idx} position={[-0.31, 0.2, z]} rotation={[0, Math.PI / 2, 0]}>
-              <cylinderGeometry args={[0.8, 0.8, 0.2, 16]} />
+          {[-2.6, 0, 2.6].map((z, idx) => (
+            <mesh key={idx} position={[-0.33, 0.2, z]} rotation={[0, Math.PI / 2, 0]}>
+              <cylinderGeometry args={[0.85, 0.85, 0.2, 20]} />
               <primitive object={limestoneTrimMat} attach="material" />
             </mesh>
           ))}
         </group>
 
-        {/* Architectural Planters with Sculptural Greenery */}
-        <group position={[-1.8, 0.6, -1.2]} castShadow>
+        {/* Overhead Pergola Beams (Casting Rhythmic Diagonal Shadows) */}
+        {[-3, -1.8, -0.6, 0.6, 1.8, 3].map((z, i) => (
+          <mesh key={i} position={[0, 3.35, z]} castShadow receiveShadow>
+            <boxGeometry args={[5.8, 0.18, 0.25]} />
+            <primitive object={limestoneTrimMat} attach="material" />
+          </mesh>
+        ))}
+
+        {/* Organic Sculptural Cypress Groves in Stone Planters */}
+        {/* Left Planter & Cypress Group */}
+        <group position={[-1.9, 0.62, -1.2]} castShadow>
           <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[0.7, 0.6, 1.6]} />
-            <primitive object={limestoneMat} attach="material" />
+            <boxGeometry args={[0.75, 0.6, 1.8]} />
+            <primitive object={limestoneTrimMat} attach="material" />
           </mesh>
-          <mesh position={[0, 1.2, -0.3]} castShadow>
-            <coneGeometry args={[0.45, 1.8, 16]} />
-            <primitive object={foliageMat} attach="material" />
-          </mesh>
-          <mesh position={[0, 1.0, 0.3]} castShadow>
-            <coneGeometry args={[0.40, 1.5, 16]} />
-            <primitive object={foliageMat} attach="material" />
-          </mesh>
+          {/* Organic Tiered Cypress 1 */}
+          <group position={[0, 0.4, -0.4]}>
+            <mesh position={[0, 0.5, 0]} castShadow>
+              <coneGeometry args={[0.42, 1.2, 16]} />
+              <primitive object={foliageMat1} attach="material" />
+            </mesh>
+            <mesh position={[0, 1.1, 0]} castShadow>
+              <coneGeometry args={[0.34, 1.0, 16]} />
+              <primitive object={foliageMat2} attach="material" />
+            </mesh>
+            <mesh position={[0, 1.6, 0]} castShadow>
+              <coneGeometry args={[0.22, 0.8, 14]} />
+              <primitive object={foliageMat3} attach="material" />
+            </mesh>
+          </group>
+          {/* Organic Tiered Cypress 2 */}
+          <group position={[0, 0.35, 0.4]}>
+            <mesh position={[0, 0.45, 0]} castShadow>
+              <coneGeometry args={[0.38, 1.1, 16]} />
+              <primitive object={foliageMat2} attach="material" />
+            </mesh>
+            <mesh position={[0, 0.95, 0]} castShadow>
+              <coneGeometry args={[0.28, 0.9, 14]} />
+              <primitive object={foliageMat1} attach="material" />
+            </mesh>
+          </group>
         </group>
 
-        <group position={[1.8, 0.6, 1.2]} castShadow>
+        {/* Right Planter & Cypress Group */}
+        <group position={[1.9, 0.62, 1.2]} castShadow>
           <mesh position={[0, 0, 0]}>
-            <boxGeometry args={[0.7, 0.6, 1.6]} />
-            <primitive object={limestoneMat} attach="material" />
+            <boxGeometry args={[0.75, 0.6, 1.8]} />
+            <primitive object={limestoneTrimMat} attach="material" />
           </mesh>
-          <mesh position={[0, 1.2, 0]} castShadow>
-            <coneGeometry args={[0.45, 1.8, 16]} />
-            <primitive object={foliageMat} attach="material" />
-          </mesh>
+          <group position={[0, 0.4, 0]}>
+            <mesh position={[0, 0.5, 0]} castShadow>
+              <coneGeometry args={[0.44, 1.2, 16]} />
+              <primitive object={foliageMat1} attach="material" />
+            </mesh>
+            <mesh position={[0, 1.1, 0]} castShadow>
+              <coneGeometry args={[0.32, 1.0, 16]} />
+              <primitive object={foliageMat2} attach="material" />
+            </mesh>
+            <mesh position={[0, 1.65, 0]} castShadow>
+              <coneGeometry args={[0.20, 0.8, 14]} />
+              <primitive object={foliageMat3} attach="material" />
+            </mesh>
+          </group>
         </group>
       </group>
     </group>
