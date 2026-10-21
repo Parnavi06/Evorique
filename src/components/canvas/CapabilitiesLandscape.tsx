@@ -7,25 +7,47 @@ interface CapabilitiesLandscapeProps {
 }
 
 export function CapabilitiesLandscape({ visible }: CapabilitiesLandscapeProps) {
-  const limestoneBump = useTexture('/textures/limestone_bump.png');
+  const [limestoneDiffuse, limestoneNormal, limestoneRoughness] = useTexture([
+    '/textures/limestone_diffuse.jpg',
+    '/textures/limestone_normal.jpg',
+    '/textures/limestone_roughness.jpg',
+  ]);
+
+  useMemo(() => {
+    [limestoneDiffuse, limestoneNormal, limestoneRoughness].forEach((tex) => {
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(3, 3);
+      tex.anisotropy = 16;
+      tex.generateMipmaps = true;
+    });
+    limestoneDiffuse.colorSpace = THREE.SRGBColorSpace;
+    limestoneNormal.colorSpace = THREE.NoColorSpace;
+    limestoneRoughness.colorSpace = THREE.NoColorSpace;
+  }, [limestoneDiffuse, limestoneNormal, limestoneRoughness]);
 
   const limestoneMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
-      color: '#ded7cc',
-      roughness: 0.86,
-      bumpMap: limestoneBump,
-      bumpScale: 0.035
+      map: limestoneDiffuse,
+      normalMap: limestoneNormal,
+      roughnessMap: limestoneRoughness,
+      normalScale: new THREE.Vector2(0.35, 0.35),
+      color: '#f2ece2',
+      roughness: 0.85,
+      metalness: 0.02
     });
-  }, [limestoneBump]);
+  }, [limestoneDiffuse, limestoneNormal, limestoneRoughness]);
 
   const limestoneTrimMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
-      color: '#c9c0b2',
+      map: limestoneDiffuse,
+      normalMap: limestoneNormal,
+      roughnessMap: limestoneRoughness,
+      normalScale: new THREE.Vector2(0.45, 0.45),
+      color: '#ded4c5',
       roughness: 0.88,
-      bumpMap: limestoneBump,
-      bumpScale: 0.03
+      metalness: 0.03
     });
-  }, [limestoneBump]);
+  }, [limestoneDiffuse, limestoneNormal, limestoneRoughness]);
 
   const glassDomeMat = useMemo(() => {
     return new THREE.MeshPhysicalMaterial({

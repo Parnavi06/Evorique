@@ -4,20 +4,72 @@ import * as THREE from 'three';
 
 export function StudioInterior() {
   const laptopScreenTex = useTexture('/scenes/laptop_screen_content.jpg');
-  const limestoneBump = useTexture('/textures/limestone_bump.png');
+
+  // Limestone PBR
+  const [limestoneDiffuse, limestoneNormal, limestoneRoughness] = useTexture([
+    '/textures/limestone_diffuse.jpg',
+    '/textures/limestone_normal.jpg',
+    '/textures/limestone_roughness.jpg',
+  ]);
+
+  // Oak Wood PBR
+  const [woodDiffuse, woodNormal, woodRoughness] = useTexture([
+    '/textures/wood_diffuse.jpg',
+    '/textures/wood_normal.jpg',
+    '/textures/wood_roughness.jpg',
+  ]);
+
+  // Configure texture parameters
+  useMemo(() => {
+    [limestoneDiffuse, limestoneNormal, limestoneRoughness].forEach((tex) => {
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(3, 3);
+      tex.anisotropy = 16;
+      tex.generateMipmaps = true;
+    });
+    limestoneDiffuse.colorSpace = THREE.SRGBColorSpace;
+    limestoneNormal.colorSpace = THREE.NoColorSpace;
+    limestoneRoughness.colorSpace = THREE.NoColorSpace;
+
+    [woodDiffuse, woodNormal, woodRoughness].forEach((tex) => {
+      tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(2, 2);
+      tex.anisotropy = 16;
+      tex.generateMipmaps = true;
+    });
+    woodDiffuse.colorSpace = THREE.SRGBColorSpace;
+    woodNormal.colorSpace = THREE.NoColorSpace;
+    woodRoughness.colorSpace = THREE.NoColorSpace;
+  }, [limestoneDiffuse, limestoneNormal, limestoneRoughness, woodDiffuse, woodNormal, woodRoughness]);
 
   // Materials
   const woodMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
-      color: '#bfa78a',
+      map: woodDiffuse,
+      normalMap: woodNormal,
+      roughnessMap: woodRoughness,
+      normalScale: new THREE.Vector2(0.3, 0.3),
+      color: '#d4bc9e',
       roughness: 0.52,
-      metalness: 0.04
+      metalness: 0.03
     });
-  }, []);
+  }, [woodDiffuse, woodNormal, woodRoughness]);
+
+  const limestoneMat = useMemo(() => {
+    return new THREE.MeshStandardMaterial({
+      map: limestoneDiffuse,
+      normalMap: limestoneNormal,
+      roughnessMap: limestoneRoughness,
+      normalScale: new THREE.Vector2(0.35, 0.35),
+      color: '#f0e9df',
+      roughness: 0.85,
+      metalness: 0.02
+    });
+  }, [limestoneDiffuse, limestoneNormal, limestoneRoughness]);
 
   const aluminumMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
-      color: '#d6d6d6',
+      color: '#d8d8d8',
       roughness: 0.28,
       metalness: 0.88
     });
@@ -30,16 +82,6 @@ export function StudioInterior() {
       metalness: 0.7
     });
   }, []);
-
-  const limestoneMat = useMemo(() => {
-    return new THREE.MeshStandardMaterial({
-      color: '#dfd8cc',
-      roughness: 0.86,
-      metalness: 0.04,
-      bumpMap: limestoneBump,
-      bumpScale: 0.03
-    });
-  }, [limestoneBump]);
 
   const glassMat = useMemo(() => {
     return new THREE.MeshPhysicalMaterial({
@@ -116,7 +158,7 @@ export function StudioInterior() {
         </mesh>
       </group>
 
-      {/* PHYSICAL WORKSTATION DESK */}
+      {/* PHYSICAL WORKSTATION DESK WITH NATURAL OAK PBR */}
       <group position={[0, 0.05, 0]}>
         {/* Natural Oak Tabletop */}
         <mesh position={[0, 0.45, 0]} castShadow receiveShadow>

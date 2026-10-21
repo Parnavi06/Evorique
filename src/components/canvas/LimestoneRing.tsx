@@ -3,33 +3,52 @@ import { useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
 export function LimestoneRing() {
-  const limestoneBump = useTexture('/textures/limestone_bump.png');
+  // Load High-Resolution PBR Texture Set
+  const [limestoneDiffuse, limestoneNormal, limestoneRoughness] = useTexture([
+    '/textures/limestone_diffuse.jpg',
+    '/textures/limestone_normal.jpg',
+    '/textures/limestone_roughness.jpg',
+  ]);
 
-  limestoneBump.wrapS = THREE.RepeatWrapping;
-  limestoneBump.wrapT = THREE.RepeatWrapping;
-  limestoneBump.repeat.set(4, 4);
+  // Configure anisotropic filtering & color spaces
+  useMemo(() => {
+    [limestoneDiffuse, limestoneNormal, limestoneRoughness].forEach((tex) => {
+      tex.wrapS = THREE.RepeatWrapping;
+      tex.wrapT = THREE.RepeatWrapping;
+      tex.repeat.set(4, 4);
+      tex.anisotropy = 16;
+      tex.generateMipmaps = true;
+    });
+    limestoneDiffuse.colorSpace = THREE.SRGBColorSpace;
+    limestoneNormal.colorSpace = THREE.NoColorSpace;
+    limestoneRoughness.colorSpace = THREE.NoColorSpace;
+  }, [limestoneDiffuse, limestoneNormal, limestoneRoughness]);
 
-  // Warm Limestone Material
+  // Warm Limestone PBR Material
   const limestoneMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
-      color: '#ded7cc',
-      roughness: 0.86,
-      metalness: 0.04,
-      bumpMap: limestoneBump,
-      bumpScale: 0.035
+      map: limestoneDiffuse,
+      normalMap: limestoneNormal,
+      roughnessMap: limestoneRoughness,
+      normalScale: new THREE.Vector2(0.35, 0.35),
+      color: '#f4ede4',
+      roughness: 0.84,
+      metalness: 0.02
     });
-  }, [limestoneBump]);
+  }, [limestoneDiffuse, limestoneNormal, limestoneRoughness]);
 
-  // Darker accent limestone for bases & trim
+  // Accent Trim Limestone Material
   const limestoneTrimMat = useMemo(() => {
     return new THREE.MeshStandardMaterial({
-      color: '#c8bfb0',
+      map: limestoneDiffuse,
+      normalMap: limestoneNormal,
+      roughnessMap: limestoneRoughness,
+      normalScale: new THREE.Vector2(0.45, 0.45),
+      color: '#ded4c5',
       roughness: 0.88,
-      metalness: 0.05,
-      bumpMap: limestoneBump,
-      bumpScale: 0.03
+      metalness: 0.03
     });
-  }, [limestoneBump]);
+  }, [limestoneDiffuse, limestoneNormal, limestoneRoughness]);
 
   // Silhouette Figure Material
   const darkFigureMat = useMemo(() => {
@@ -93,7 +112,6 @@ export function LimestoneRing() {
 
       {/* ============================================================ */}
       {/* THE ARCHITECTURAL RING ("The Mark") */}
-      {/* A grand, thick circular limestone portal standing at Z = 0 */}
       {/* ============================================================ */}
       <group position={[0, 2.1, 0]} castShadow receiveShadow>
         {/* Main Beveled Ring Torus */}
@@ -141,7 +159,6 @@ export function LimestoneRing() {
 
       {/* ============================================================ */}
       {/* STATE 02: INNER COURTYARD & TERRACE PATH */}
-      {/* Spatially nested directly through the ring opening (Z = -2 to -8) */}
       {/* ============================================================ */}
       <group position={[0, 0, -4.5]}>
         {/* Courtyard Walkway Stone Floor */}
@@ -164,7 +181,6 @@ export function LimestoneRing() {
             <boxGeometry args={[0.6, 3.2, 8.0]} />
             <primitive object={limestoneMat} attach="material" />
           </mesh>
-          {/* Arch openings */}
           {[-2.5, 0, 2.5].map((z, idx) => (
             <mesh key={idx} position={[0.31, 0.2, z]} rotation={[0, Math.PI / 2, 0]}>
               <cylinderGeometry args={[0.8, 0.8, 0.2, 16]} />
@@ -179,7 +195,6 @@ export function LimestoneRing() {
             <boxGeometry args={[0.6, 3.2, 8.0]} />
             <primitive object={limestoneMat} attach="material" />
           </mesh>
-          {/* Arch openings */}
           {[-2.5, 0, 2.5].map((z, idx) => (
             <mesh key={idx} position={[-0.31, 0.2, z]} rotation={[0, Math.PI / 2, 0]}>
               <cylinderGeometry args={[0.8, 0.8, 0.2, 16]} />
@@ -194,7 +209,6 @@ export function LimestoneRing() {
             <boxGeometry args={[0.7, 0.6, 1.6]} />
             <primitive object={limestoneMat} attach="material" />
           </mesh>
-          {/* Stylized Cypress Trees */}
           <mesh position={[0, 1.2, -0.3]} castShadow>
             <coneGeometry args={[0.45, 1.8, 16]} />
             <primitive object={foliageMat} attach="material" />
