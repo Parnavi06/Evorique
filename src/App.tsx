@@ -2,13 +2,14 @@ import React, { useState } from 'react';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 import { interpolateCamera } from './constants/keyframes';
 import { ExperienceCanvas } from './components/canvas/ExperienceCanvas';
-import { HeroOverlay } from './components/scenes/HeroOverlay';
-import { ThinkingOverlay } from './components/scenes/ThinkingOverlay';
-import { StudioOverlay } from './components/scenes/StudioOverlay';
-import { ProjectTeaserOverlay } from './components/scenes/ProjectTeaserOverlay';
-import { AuroraProjectView } from './components/scenes/AuroraProjectView';
-import { CapabilitiesView } from './components/scenes/CapabilitiesView';
-import { ContactOverlay } from './components/scenes/ContactOverlay';
+import { Chapter01Headquarters } from './components/scenes/Chapter01Headquarters';
+import { Chapter02Ideation } from './components/scenes/Chapter02Ideation';
+import { Chapter03Strategy } from './components/scenes/Chapter03Strategy';
+import { Chapter04Design } from './components/scenes/Chapter04Design';
+import { Chapter05Engineering } from './components/scenes/Chapter05Engineering';
+import { Chapter06Quality } from './components/scenes/Chapter06Quality';
+import { Chapter07Launch } from './components/scenes/Chapter07Launch';
+import { Chapter08NextCreation } from './components/scenes/Chapter08NextCreation';
 import { UIOverlay } from './components/overlay/UIOverlay';
 import { CaseStudyModal } from './components/modals/CaseStudyModal';
 import { CapabilityModal } from './components/modals/CapabilityModal';
@@ -34,44 +35,48 @@ export default function App() {
   const { progress, scrollToProgress } = useSmoothScroll({ isModalOpen: isAnyModalOpen });
   const camData = interpolateCamera(progress);
 
-  // Calculate opacities for the 7 visual states
-  const op1 = calcOpacity(progress, 0.0, 0.0, 0.10, 0.16);
-  const op2 = calcOpacity(progress, 0.15, 0.20, 0.27, 0.32);
-  const op3 = calcOpacity(progress, 0.30, 0.35, 0.42, 0.47);
-  const op4 = calcOpacity(progress, 0.46, 0.49, 0.53, 0.56);
-  const op5 = calcOpacity(progress, 0.56, 0.60, 0.68, 0.72);
-  const op6 = calcOpacity(progress, 0.73, 0.78, 0.86, 0.90);
-  const op7 = calcOpacity(progress, 0.89, 0.94, 1.0, 1.0);
+  // Calculate opacities across all 8 architectural chapters
+  const op1 = calcOpacity(progress, 0.0, 0.0, 0.09, 0.15);
+  const op2 = calcOpacity(progress, 0.14, 0.18, 0.25, 0.29);
+  const op3 = calcOpacity(progress, 0.28, 0.32, 0.38, 0.42);
+  const op4 = calcOpacity(progress, 0.41, 0.45, 0.51, 0.55);
+  const op5 = calcOpacity(progress, 0.54, 0.58, 0.64, 0.68);
+  const op6 = calcOpacity(progress, 0.67, 0.71, 0.77, 0.81);
+  const op7 = calcOpacity(progress, 0.80, 0.83, 0.88, 0.92);
+  const op8 = calcOpacity(progress, 0.91, 0.94, 1.0, 1.0);
 
-  // State jump triggers
-  const handleNavigateState = (stateNum: number) => {
-    switch (stateNum) {
+  // Jump to specific chapter
+  const handleNavigateChapter = (chNum: number) => {
+    switch (chNum) {
       case 1:
         scrollToProgress(0.0);
         break;
       case 2:
-        scrollToProgress(0.24);
+        scrollToProgress(0.20);
         break;
       case 3:
-        scrollToProgress(0.38);
+        scrollToProgress(0.33);
         break;
       case 4:
-        scrollToProgress(0.50);
+        scrollToProgress(0.46);
         break;
       case 5:
-        scrollToProgress(0.64);
+        scrollToProgress(0.59);
         break;
       case 6:
-        scrollToProgress(0.84);
+        scrollToProgress(0.72);
         break;
       case 7:
+        scrollToProgress(0.85);
+        break;
+      case 8:
         scrollToProgress(1.0);
         break;
     }
   };
 
   return (
-    <div className="relative w-full min-h-[750vh] bg-[#fbf9f5]">
+    <div className="relative w-full min-h-[850vh] bg-[#F4F1E9]">
       {/* Fixed Viewport Shell */}
       <div className="fixed inset-0 w-full h-full pointer-events-none overflow-hidden">
         {/* Subtle Architectural Grain Overlay */}
@@ -80,54 +85,65 @@ export default function App() {
         {/* 3D WebGL Three.js Infinite Zoom World */}
         <ExperienceCanvas progress={progress} />
 
-        {/* STATE 01: THE MARK */}
-        <HeroOverlay
+        {/* CHAPTER 01: THE HEADQUARTERS */}
+        <Chapter01Headquarters
           opacity={op1}
-          onExploreClick={() => handleNavigateState(2)}
+          onExploreClick={() => handleNavigateChapter(2)}
         />
 
-        {/* STATE 02: THE THINKING */}
-        <ThinkingOverlay
+        {/* CHAPTER 02: THE IDEATION ROOM */}
+        <Chapter02Ideation
           opacity={op2}
-          onNextClick={() => handleNavigateState(3)}
+          onNextClick={() => handleNavigateChapter(3)}
         />
 
-        {/* STATE 03: INSIDE OUR STUDIO */}
-        <StudioOverlay
+        {/* CHAPTER 03: THE STRATEGY LAB */}
+        <Chapter03Strategy
           opacity={op3}
-          onZoomProject={() => handleNavigateState(4)}
+          onNextClick={() => handleNavigateChapter(4)}
+          onCapabilityClick={() => setSelectedCapability('strategy')}
         />
 
-        {/* STATE 04: A PROJECT */}
-        <ProjectTeaserOverlay
+        {/* CHAPTER 04: THE DESIGN STUDIO */}
+        <Chapter04Design
           opacity={op4}
-          onEnterScreen={() => handleNavigateState(5)}
+          onNextClick={() => handleNavigateChapter(5)}
+          onCapabilityClick={() => setSelectedCapability('design')}
         />
 
-        {/* STATE 05: INSIDE THE PROJECT (AURORA) */}
-        <AuroraProjectView
+        {/* CHAPTER 05: THE ENGINEERING LAB */}
+        <Chapter05Engineering
           opacity={op5}
-          onOpenCaseStudy={() => setCaseStudyOpen(true)}
-          onPullBack={() => handleNavigateState(6)}
+          onNextClick={() => handleNavigateChapter(6)}
+          onCapabilityClick={() => setSelectedCapability('engineering')}
         />
 
-        {/* STATE 06: CAPABILITIES */}
-        <CapabilitiesView
+        {/* CHAPTER 06: THE QUALITY LAB */}
+        <Chapter06Quality
           opacity={op6}
-          onSelectCapability={(id) => setSelectedCapability(id)}
+          onNextClick={() => handleNavigateChapter(7)}
+          onCapabilityClick={() => setSelectedCapability('quality')}
         />
 
-        {/* STATE 07: CONTACT */}
-        <ContactOverlay
+        {/* CHAPTER 07: THE LAUNCH CHAMBER */}
+        <Chapter07Launch
           opacity={op7}
-          onOpenContactModal={() => setContactModalOpen(true)}
+          onExploreAurora={() => setCaseStudyOpen(true)}
+          onNextClick={() => handleNavigateChapter(8)}
         />
 
-        {/* PERSISTENT GLOBAL NAVIGATION & CONTROLS */}
+        {/* CHAPTER 08: THE NEXT CREATION */}
+        <Chapter08NextCreation
+          opacity={op8}
+          onContactClick={() => setContactModalOpen(true)}
+          onRestartClick={() => handleNavigateChapter(1)}
+        />
+
+        {/* PERSISTENT GLOBAL NAVIGATION & TELEMETRY */}
         <UIOverlay
           progress={progress}
-          activeState={camData.activeState}
-          onNavigateState={handleNavigateState}
+          activeChapter={camData.activeChapter}
+          onNavigateChapter={handleNavigateChapter}
           onOpenContact={() => setContactModalOpen(true)}
         />
       </div>

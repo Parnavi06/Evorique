@@ -4,15 +4,19 @@
 
 @layer base {
   :root {
-    --bg-warm: #fbf9f5;
-    --text-primary: #1a1918;
-    --text-secondary: #736d64;
-    --accent-limestone: #d5cec2;
+    --bg-ivory: #F4F1E9;
+    --bg-porcelain: #E8E7E0;
+    --bg-warm-white: #FAF9F6;
+    --text-charcoal: #252824;
+    --text-stone: #777970;
+    --accent-champagne: #B69A70;
+    --accent-sage: #9CA995;
+    --accent-taupe: #C9C1B3;
   }
 
   html {
     scroll-behavior: smooth;
-    background-color: var(--bg-warm);
+    background-color: var(--bg-ivory);
   }
 
   body {
@@ -20,59 +24,63 @@
     padding: 0;
     width: 100%;
     min-height: 100vh;
-    background-color: var(--bg-warm);
-    color: var(--text-primary);
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-ivory);
+    color: var(--text-charcoal);
+    font-family: 'Inter', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: hidden;
   }
 
-  /* Custom subtle scrollbar */
+  /* Custom architectural scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
+    width: 5px;
   }
   ::-webkit-scrollbar-track {
-    background: #f5f2eb;
+    background: #E8E7E0;
   }
   ::-webkit-scrollbar-thumb {
-    background: #d5cec2;
-    border-radius: 3px;
+    background: #C9C1B3;
+    border-radius: 2px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #b8b0a2;
+    background: #B69A70;
   }
 }
 
 .font-editorial {
-  font-family: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  font-family: 'Cormorant Garamond', 'Instrument Serif', Georgia, serif;
+}
+
+.font-body {
+  font-family: 'Inter', 'Manrope', system-ui, sans-serif;
 }
 
 /* Subtle architectural grain */
 .grain-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
 }
 
-/* Smooth glass styling */
+/* Architectural glass styling */
 .glass-panel {
-  background: rgba(251, 249, 245, 0.72);
+  background: rgba(244, 241, 233, 0.78);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(213, 206, 194, 0.45);
+  border: 1px solid rgba(201, 193, 179, 0.45);
 }
 
 .glass-pill {
-  background: rgba(255, 255, 255, 0.85);
+  background: rgba(250, 249, 246, 0.88);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(223, 215, 200, 0.6);
+  border: 1px solid rgba(201, 193, 179, 0.55);
 }
 
-/* Pulsing indicators */
-@keyframes pulse-ring {
-  0% { transform: scale(0.95); opacity: 0.8; }
-  50% { transform: scale(1.08); opacity: 0.4; }
-  100% { transform: scale(0.95); opacity: 0.8; }
+/* Champagne glow indicator */
+@keyframes subtle-pulse {
+  0% { transform: scale(0.98); opacity: 0.85; }
+  50% { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(0.98); opacity: 0.85; }
 }
 
-.pulse-ring-anim {
-  animation: pulse-ring 3s infinite ease-in-out;
+.pulse-glow {
+  animation: subtle-pulse 3.5s infinite ease-in-out;
 }

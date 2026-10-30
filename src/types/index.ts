@@ -3,8 +3,28 @@ export interface CameraKeyframe {
   position: [number, number, number];
   target: [number, number, number];
   fov: number;
-  label: string;
-  stateIndex: number;
+  chapterIndex: number;
+  chapterNumber: string;
+  chapterTitle: string;
+  locationCode: string;
+  narrative: string;
+}
+
+export interface ChapterInfo {
+  index: number;
+  number: string;
+  title: string;
+  subtitle: string;
+  narrative: string;
+  headline: string;
+  description: string;
+  locationCode: string;
+  department: string;
+  transitionPrompt?: string;
+  artifacts?: {
+    label: string;
+    value: string;
+  }[];
 }
 
 export interface CapabilityItem {
@@ -14,7 +34,7 @@ export interface CapabilityItem {
   description: string;
   deliverables: string[];
   metrics: string;
-  coordinates: [number, number, number]; // 3D coordinates in the scene
+  coordinates: [number, number, number];
 }
 
 export interface CaseStudyData {

@@ -6,87 +6,70 @@ export function EnvironmentAtmosphere() {
 
   return (
     <>
-      {/* Background warm ivory sky color and atmospheric depth haze */}
-      <color attach="background" args={['#f6f1e8']} />
-      <fog attach="fog" args={['#f6f1e8', 16, 95]} />
+      {/* Primary Ivory Sky & Atmospheric Haze */}
+      <color attach="background" args={['#F4F1E9']} />
+      <fog attach="fog" args={['#F4F1E9', 18, 95]} />
 
-      {/* Balanced Architectural Lighting System */}
-      <ambientLight color="#fff9f0" intensity={0.75} />
-      <hemisphereLight args={['#fffdf8', '#ded6c7', 0.85]} />
+      {/* Daylight Ambient & Hemisphere Lighting */}
+      <ambientLight color="#FAF9F6" intensity={0.8} />
+      <hemisphereLight args={['#FAF9F6', '#E8E7E0', 0.9]} />
 
-      {/* Primary Key Sunlight (Warm Morning Sun) */}
+      {/* Key Sunlight (Warm Natural Daylight) */}
       <directionalLight
         ref={dirLightRef}
-        position={[18, 28, 14]}
-        intensity={2.2}
-        color="#fff4df"
+        position={[22, 32, 16]}
+        intensity={2.1}
+        color="#FFF4DF"
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         shadow-camera-near={1}
-        shadow-camera-far={90}
-        shadow-camera-left={-25}
-        shadow-camera-right={25}
-        shadow-camera-top={25}
-        shadow-camera-bottom={-25}
+        shadow-camera-far={120}
+        shadow-camera-left={-30}
+        shadow-camera-right={30}
+        shadow-camera-top={30}
+        shadow-camera-bottom={-30}
         shadow-bias={-0.0001}
       />
 
-      {/* Secondary Fill Light for Architectural Softness */}
+      {/* Gentle Secondary Architectural Rim Light */}
       <directionalLight
-        position={[-16, 14, -10]}
+        position={[-18, 16, -12]}
         intensity={0.55}
-        color="#ede6db"
+        color="#E8E7E0"
       />
 
-      {/* Subtle Warm Horizon Sun Glow */}
+      {/* Warm Horizon Fill */}
       <directionalLight
-        position={[0, 4, -40]}
+        position={[0, 4, -45]}
         intensity={0.4}
-        color="#ffeed6"
+        color="#FAF9F6"
       />
 
-      {/* LAYERED DISTANT HORIZON MOUNTAIN RIDGES (Atmospheric Aerial Perspective) */}
-      <group position={[0, -0.8, -60]}>
-        {/* Layer 3 - Deep Background Hazy Ridge */}
-        <mesh position={[0, 9, -20]}>
-          <planeGeometry args={[140, 24]} />
-          <meshBasicMaterial color="#e5ddd2" transparent opacity={0.65} />
+      {/* DISTANT CAMPUS LANDSCAPE & HILLS (Subtle Architectural Horizon) */}
+      <group position={[0, -0.6, -75]}>
+        {/* Layer 3 - Distant Soft Horizon Ridge */}
+        <mesh position={[0, 10, -25]}>
+          <planeGeometry args={[160, 28]} />
+          <meshBasicMaterial color="#E8E7E0" transparent opacity={0.65} />
         </mesh>
 
-        {/* Layer 2 - Mid-Distance Ridge Peaks */}
-        <group position={[0, 3, -10]}>
-          {[-45, -20, 5, 28, 52].map((x, i) => (
-            <mesh key={i} position={[x, 3.5 + (i % 3) * 1.5, 0]} rotation={[0, 0, Math.PI / 4]}>
-              <boxGeometry args={[16 + i * 2, 16 + i * 2, 2]} />
-              <meshBasicMaterial color="#dfd6ca" />
+        {/* Layer 2 - Gentle Geometric Terraces */}
+        <group position={[0, 4, -12]}>
+          {[-50, -25, 0, 25, 50].map((x, i) => (
+            <mesh key={i} position={[x, 3.2 + (i % 3) * 1.2, 0]} rotation={[0, 0, Math.PI / 4]}>
+              <boxGeometry args={[18 + i * 2, 18 + i * 2, 2]} />
+              <meshBasicMaterial color="#DFD7CB" />
             </mesh>
           ))}
         </group>
 
-        {/* Layer 1 - Near Horizon Foothills */}
+        {/* Layer 1 - Landscaped Campus Foothills */}
         <group position={[0, 0, 0]}>
-          {[-38, -12, 15, 42].map((x, i) => (
-            <mesh key={i} position={[x, 1.8 + (i % 2) * 1.2, 0]} rotation={[0, 0, Math.PI / 4]}>
-              <boxGeometry args={[12 + i * 2, 12 + i * 2, 2]} />
-              <meshBasicMaterial color="#dad0c2" />
-            </mesh>
-          ))}
-        </group>
-
-        {/* Distant City Spires Silhouette across the Water (as in Reference State 01) */}
-        <group position={[18, 1.2, 8]}>
-          {[
-            { x: 0, h: 4.5, w: 0.8 },
-            { x: 1.2, h: 6.2, w: 0.9 },
-            { x: 2.2, h: 5.0, w: 0.7 },
-            { x: 3.4, h: 7.5, w: 1.1 },
-            { x: 4.8, h: 5.8, w: 0.8 },
-            { x: 6.0, h: 4.2, w: 0.7 }
-          ].map((spire, idx) => (
-            <mesh key={idx} position={[spire.x, spire.h / 2, 0]}>
-              <boxGeometry args={[spire.w, spire.h, 0.6]} />
-              <meshBasicMaterial color="#e2dacd" />
+          {[-42, -18, 18, 42].map((x, i) => (
+            <mesh key={i} position={[x, 1.8 + (i % 2) * 1.0, 0]} rotation={[0, 0, Math.PI / 4]}>
+              <boxGeometry args={[14 + i * 2, 14 + i * 2, 2]} />
+              <meshBasicMaterial color="#D6CEBF" />
             </mesh>
           ))}
         </group>

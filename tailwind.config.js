@@ -8,22 +8,21 @@ export default {
     extend: {
       colors: {
         evorique: {
-          bg: '#fbf9f5',
-          ivory: '#f6f3ec',
-          cream: '#ede7dc',
-          sand: '#dfd7c8',
-          limestone: '#b8b0a2',
-          charcoal: '#1a1918',
-          dark: '#141414',
-          stone: '#736d64',
-          muted: '#8f887d',
-          water: '#7da49e',
-          accent: '#262422'
+          ivory: '#F4F1E9',      // Primary ivory
+          porcelain: '#E8E7E0',  // Porcelain
+          warmWhite: '#FAF9F6',  // Warm white
+          charcoal: '#252824',   // Deep charcoal
+          stone: '#777970',      // Stone grey
+          champagne: '#B69A70',  // Champagne
+          sage: '#9CA995',       // Muted sage
+          taupe: '#C9C1B3',      // Soft taupe
+          dark: '#181A18',
+          border: 'rgba(119, 121, 112, 0.22)'
         }
       },
       fontFamily: {
-        serif: ['"Cormorant Garamond"', 'Playfair Display', 'Georgia', 'serif'],
-        sans: ['"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['"Cormorant Garamond"', '"Instrument Serif"', 'Georgia', 'serif'],
+        sans: ['"Inter"', '"Manrope"', 'system-ui', '-apple-system', 'sans-serif'],
       },
       letterSpacing: {
         'ultra-wide': '0.25em',
