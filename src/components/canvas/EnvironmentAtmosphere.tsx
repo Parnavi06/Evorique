@@ -8,27 +8,27 @@ export function EnvironmentAtmosphere() {
     <>
       {/* Primary Ivory Sky & Atmospheric Haze */}
       <color attach="background" args={['#F4F1E9']} />
-      <fog attach="fog" args={['#F4F1E9', 18, 95]} />
+      <fog attach="fog" args={['#F4F1E9', 32, 135]} />
 
       {/* Daylight Ambient & Hemisphere Lighting */}
-      <ambientLight color="#FAF9F6" intensity={0.8} />
-      <hemisphereLight args={['#FAF9F6', '#E8E7E0', 0.9]} />
+      <ambientLight color="#FAF9F6" intensity={0.85} />
+      <hemisphereLight args={['#FAF9F6', '#E8E7E0', 0.85]} />
 
       {/* Key Sunlight (Warm Natural Daylight) */}
       <directionalLight
         ref={dirLightRef}
-        position={[22, 32, 16]}
-        intensity={2.1}
+        position={[26, 32, 18]}
+        intensity={2.3}
         color="#FFF4DF"
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
         shadow-camera-near={1}
-        shadow-camera-far={120}
-        shadow-camera-left={-30}
-        shadow-camera-right={30}
-        shadow-camera-top={30}
-        shadow-camera-bottom={-30}
+        shadow-camera-far={130}
+        shadow-camera-left={-55}
+        shadow-camera-right={55}
+        shadow-camera-top={35}
+        shadow-camera-bottom={-25}
         shadow-bias={-0.0001}
       />
 

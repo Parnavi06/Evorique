@@ -4,9 +4,9 @@ export const CAMERA_KEYFRAMES: CameraKeyframe[] = [
   // CHAPTER 01 — THE HEADQUARTERS (Campus Overview & Entrance)
   {
     progress: 0.0,
-    position: [0, 3.8, 22.0],
-    target: [0, 1.8, 0],
-    fov: 48,
+    position: [0, 3.6, 24.5],
+    target: [0, 2.8, 3.8],
+    fov: 46,
     chapterIndex: 1,
     chapterNumber: "01",
     chapterTitle: "THE HEADQUARTERS",
@@ -15,9 +15,9 @@ export const CAMERA_KEYFRAMES: CameraKeyframe[] = [
   },
   {
     progress: 0.07,
-    position: [0, 2.3, 13.5],
-    target: [0, 1.6, 0],
-    fov: 46,
+    position: [0, 2.2, 14.5],
+    target: [0, 2.0, 3.6],
+    fov: 43,
     chapterIndex: 1,
     chapterNumber: "01",
     chapterTitle: "ENTRANCE PROMENADE",
@@ -26,9 +26,9 @@ export const CAMERA_KEYFRAMES: CameraKeyframe[] = [
   },
   {
     progress: 0.13,
-    position: [0, 1.55, 5.0],
-    target: [0, 1.5, -2.5],
-    fov: 42,
+    position: [0, 1.65, 5.8],
+    target: [0, 1.65, 0.5],
+    fov: 40,
     chapterIndex: 1,
     chapterNumber: "01",
     chapterTitle: "GLASS PORTAL",
