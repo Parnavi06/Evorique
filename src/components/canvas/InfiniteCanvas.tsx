@@ -21,7 +21,7 @@ export function InfiniteCanvas({ progress, onSelectProject }: InfiniteCanvasProp
           toneMapping: THREE.ACESFilmicToneMapping,
           toneMappingExposure: 1.06
         }}
-        shadows="soft"
+        shadows
       >
         <CanvasCameraRig progress={progress} />
         <InfiniteWorld progress={progress} onSelectProject={onSelectProject} />
