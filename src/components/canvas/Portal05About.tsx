@@ -37,15 +37,15 @@ export function Portal05About() {
 
   return (
     <group position={[0, 0, 0]}>
-      {/* 1. Observatory Platform Floor (Z = -42 to -58) */}
-      <mesh position={[0, -0.3, -50]} receiveShadow>
+      {/* 1. Observatory Platform Floor (Z = -27 to -45, centered at -36) */}
+      <mesh position={[0, -0.3, -36]} receiveShadow>
         <boxGeometry args={[18, 0.5, 18]} />
         <primitive object={travertineMat} attach="material" />
       </mesh>
 
       {/* Flanking Curved Observatory Walls with Slit Windows */}
       {[-7.5, 7.5].map((x, i) => (
-        <group key={i} position={[x, 2.8, -50]}>
+        <group key={i} position={[x, 2.8, -36]}>
           <mesh castShadow receiveShadow>
             <boxGeometry args={[1.2, 5.8, 17.5]} />
             <primitive object={limestoneMat} attach="material" />
@@ -61,7 +61,7 @@ export function Portal05About() {
       ))}
 
       {/* Centerpiece: Scandinavian Oak Studio Worktable (Symbol of Craft & Honest Work) */}
-      <group position={[0, 0.4, -49]}>
+      <group position={[0, 0.4, -35]}>
         {/* Table Top */}
         <mesh position={[0, 0.38, 0]} castShadow receiveShadow>
           <boxGeometry args={[4.8, 0.12, 2.0]} />
@@ -79,7 +79,7 @@ export function Portal05About() {
       </group>
 
       {/* Suspended Minimalist Linear Architectural Luminaire */}
-      <group position={[0, 3.6, -49]}>
+      <group position={[0, 3.6, -35]}>
         <mesh>
           <boxGeometry args={[4.2, 0.08, 0.12]} />
           <primitive object={bronzeMat} attach="material" />
@@ -87,8 +87,8 @@ export function Portal05About() {
         <pointLight position={[0, -0.2, 0]} color="#FFF4DF" intensity={2.0} distance={7} />
       </group>
 
-      {/* 2. OBSERVATORY BALCONY THRESHOLD (Z = -58.0) */}
-      <group position={[0, 2.6, -58.0]}>
+      {/* 2. OBSERVATORY BALCONY THRESHOLD (Z = -44.0) */}
+      <group position={[0, 2.6, -44.0]}>
         <mesh position={[-2.4, 0, 0]} castShadow receiveShadow>
           <boxGeometry args={[1.4, 6.2, 1.2]} />
           <primitive object={limestoneMat} attach="material" />

@@ -23,8 +23,8 @@ export function Portal04Services() {
 
   return (
     <group position={[0, 0, 0]}>
-      {/* 1. Atelier Base Floor (Z = -24 to -40) */}
-      <mesh position={[0, -0.3, -32]} receiveShadow>
+      {/* 1. Atelier Base Floor (Z = -10 to -26, centered at -18) */}
+      <mesh position={[0, -0.3, -18]} receiveShadow>
         <boxGeometry args={[18, 0.5, 18]} />
         <primitive object={travertineMat} attach="material" />
       </mesh>
@@ -32,7 +32,7 @@ export function Portal04Services() {
       {/* Symmetrical Flanking Colonnade of Service Stelae */}
       {[-6.2, 6.2].map((x, colIdx) => (
         <group key={colIdx}>
-          {[-26, -30, -34, -38].map((z, rowIdx) => (
+          {[-12, -16, -20, -24].map((z, rowIdx) => (
             <group key={rowIdx} position={[x, 2.5, z]}>
               {/* Monolithic Inscribed Stele */}
               <mesh castShadow receiveShadow>
@@ -50,18 +50,18 @@ export function Portal04Services() {
       ))}
 
       {/* Floating Bronze Polyhedra (Symbol of Creative Technology & Geometry) */}
-      <mesh ref={polyhedron1} position={[-2.8, 3.8, -29]} castShadow>
+      <mesh ref={polyhedron1} position={[-2.8, 3.8, -15]} castShadow>
         <icosahedronGeometry args={[0.65, 0]} />
         <primitive object={bronzeMat} attach="material" />
       </mesh>
 
-      <mesh ref={polyhedron2} position={[2.8, 3.8, -35]} castShadow>
+      <mesh ref={polyhedron2} position={[2.8, 3.8, -21]} castShadow>
         <octahedronGeometry args={[0.65, 0]} />
         <primitive object={bronzeMat} attach="material" />
       </mesh>
 
-      {/* 2. THE MONUMENTAL MARBLE DOORWAY (Z = -40.0) */}
-      <group position={[0, 2.6, -40.0]}>
+      {/* 2. THE MONUMENTAL MARBLE DOORWAY (Z = -26.0) */}
+      <group position={[0, 2.6, -26.0]}>
         {/* Doorway Frame */}
         <mesh position={[-2.2, 0, 0]} castShadow receiveShadow>
           <boxGeometry args={[1.2, 6.2, 1.2]} />

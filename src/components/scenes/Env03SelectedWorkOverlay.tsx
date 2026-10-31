@@ -13,7 +13,7 @@ export const Env03SelectedWorkOverlay: React.FC<Env03Props> = ({
   onSelectProject,
   onNextClick
 }) => {
-  const env = CANVAS_ENVIRONMENTS[2];
+  const env = CANVAS_ENVIRONMENTS.find((e) => e.id === 2) || CANVAS_ENVIRONMENTS[1];
   if (opacity <= 0.01) return null;
 
   return (

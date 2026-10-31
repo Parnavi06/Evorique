@@ -25,20 +25,20 @@ export function Portal06Destination() {
 
   return (
     <group position={[0, 0, 0]}>
-      {/* 1. Coastal Promontory Terrace (Z = -60 to -78) */}
-      <mesh position={[0, -0.3, -69]} receiveShadow>
+      {/* 1. Coastal Promontory Terrace (Z = -46 to -62, centered at -54) */}
+      <mesh position={[0, -0.3, -54]} receiveShadow>
         <boxGeometry args={[22, 0.5, 18]} />
         <primitive object={travertineMat} attach="material" />
       </mesh>
 
       {/* Flanking Water Expanses */}
-      <mesh position={[0, -0.2, -75]} rotation={[-Math.PI / 2, 0, 0]}>
+      <mesh position={[0, -0.2, -61]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[120, 60]} />
         <primitive object={waterMat} attach="material" />
       </mesh>
 
-      {/* 2. THE MONUMENTAL HORIZON ARCH (Z = -76.0) */}
-      <group position={[0, 3.2, -76.0]}>
+      {/* 2. THE MONUMENTAL HORIZON ARCH (Z = -62.0) */}
+      <group position={[0, 3.2, -62.0]}>
         {/* Left Pylon */}
         <mesh position={[-2.8, 0, 0]} castShadow receiveShadow>
           <boxGeometry args={[1.6, 7.2, 1.6]} />

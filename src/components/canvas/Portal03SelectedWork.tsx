@@ -34,23 +34,23 @@ export function Portal03SelectedWork({ onSelectProject }: Portal03Props) {
   }), []);
 
   const exhibits = [
-    { id: 'aurora', title: 'Aurora', pos: [-3.4, 1.8, -10] as [number, number, number], tex: auroraTex },
-    { id: 'the-mark', title: 'The Mark', pos: [3.4, 1.8, -10] as [number, number, number], tex: markTex },
-    { id: 'studio-workspace', title: 'Studio', pos: [-3.4, 1.8, -16] as [number, number, number], tex: studioTex },
-    { id: 'archipelago', title: 'Archipelago', pos: [3.4, 1.8, -16] as [number, number, number], tex: archipelagoTex },
+    { id: 'aurora', title: 'Aurora', pos: [-3.4, 1.8, 4] as [number, number, number], tex: auroraTex },
+    { id: 'the-mark', title: 'The Mark', pos: [3.4, 1.8, 4] as [number, number, number], tex: markTex },
+    { id: 'studio-workspace', title: 'Studio', pos: [-3.4, 1.8, -2] as [number, number, number], tex: studioTex },
+    { id: 'archipelago', title: 'Archipelago', pos: [3.4, 1.8, -2] as [number, number, number], tex: archipelagoTex },
   ];
 
   return (
     <group position={[0, 0, 0]}>
-      {/* 1. Floating Gallery Promenade Floor (Z = -6 to -22) */}
-      <mesh position={[0, -0.3, -14]} receiveShadow>
+      {/* 1. Floating Gallery Promenade Floor (Z = 9 to -9) */}
+      <mesh position={[0, -0.3, 0]} receiveShadow>
         <boxGeometry args={[14, 0.5, 18]} />
         <primitive object={travertineMat} attach="material" />
       </mesh>
 
       {/* Flanking Gallery Parapets */}
       {[-6.8, 6.8].map((x, i) => (
-        <mesh key={i} position={[x, 0.35, -14]} castShadow receiveShadow>
+        <mesh key={i} position={[x, 0.35, 0]} castShadow receiveShadow>
           <boxGeometry args={[0.5, 0.8, 18]} />
           <primitive object={limestoneMat} attach="material" />
         </mesh>
@@ -86,8 +86,8 @@ export function Portal03SelectedWork({ onSelectProject }: Portal03Props) {
         </group>
       ))}
 
-      {/* 2. THE CRYSTALLINE PORTAL FRAME (Z = -22.0) */}
-      <group position={[0, 2.6, -22.0]}>
+      {/* 2. THE CRYSTALLINE PORTAL FRAME (Z = -8.0) */}
+      <group position={[0, 2.6, -8.0]}>
         {/* Monolithic Portal Piers */}
         <mesh position={[-2.6, 0, 0]} castShadow receiveShadow>
           <boxGeometry args={[1.4, 6.4, 1.4]} />
@@ -108,7 +108,7 @@ export function Portal03SelectedWork({ onSelectProject }: Portal03Props) {
           <primitive object={crystallineMat} attach="material" />
         </mesh>
 
-        {/* Luminous Gateway Glow into Environment 04 */}
+        {/* Luminous Gateway Glow into Environment 03 */}
         <pointLight position={[0, 1.2, -0.6]} color="#FFF2DC" intensity={2.2} distance={8} />
       </group>
     </group>

@@ -4,7 +4,6 @@ import { interpolateCanvasCamera } from './constants/canvasKeyframes';
 import { InfiniteCanvas } from './components/canvas/InfiniteCanvas';
 import { CanvasHUD } from './components/overlay/CanvasHUD';
 import { Env01BeginningOverlay } from './components/scenes/Env01BeginningOverlay';
-import { Env02CreativeMindOverlay } from './components/scenes/Env02CreativeMindOverlay';
 import { Env03SelectedWorkOverlay } from './components/scenes/Env03SelectedWorkOverlay';
 import { Env04ServicesOverlay } from './components/scenes/Env04ServicesOverlay';
 import { Env05AboutOverlay } from './components/scenes/Env05AboutOverlay';
@@ -31,33 +30,29 @@ export default function App() {
   const { progress, scrollToProgress } = useCanvasScroll({ isModalOpen });
   const camData = interpolateCanvasCamera(progress);
 
-  // Opacity transitions across the 6 nested visual environments
-  const op1 = calcOpacity(progress, 0.0, 0.0, 0.10, 0.17);
-  const op2 = calcOpacity(progress, 0.16, 0.22, 0.30, 0.35);
-  const op3 = calcOpacity(progress, 0.34, 0.40, 0.48, 0.53);
-  const op4 = calcOpacity(progress, 0.52, 0.58, 0.66, 0.71);
-  const op5 = calcOpacity(progress, 0.70, 0.76, 0.83, 0.87);
-  const op6 = calcOpacity(progress, 0.86, 0.91, 1.0, 1.0);
+  // Opacity transitions across the 5 streamlined visual environments
+  const op1 = calcOpacity(progress, 0.0, 0.0, 0.12, 0.20);
+  const op2 = calcOpacity(progress, 0.20, 0.26, 0.38, 0.43);
+  const op3 = calcOpacity(progress, 0.43, 0.48, 0.58, 0.64);
+  const op4 = calcOpacity(progress, 0.64, 0.69, 0.78, 0.83);
+  const op5 = calcOpacity(progress, 0.83, 0.88, 1.0, 1.0);
 
-  // Smooth jump to any environment
+  // Smooth jump to any of the 5 environments
   const handleNavigateEnv = (id: number) => {
     switch (id) {
       case 1:
         scrollToProgress(0.0);
         break;
       case 2:
-        scrollToProgress(0.25);
+        scrollToProgress(0.28);
         break;
       case 3:
-        scrollToProgress(0.44);
+        scrollToProgress(0.50);
         break;
       case 4:
-        scrollToProgress(0.62);
+        scrollToProgress(0.72);
         break;
       case 5:
-        scrollToProgress(0.79);
-        break;
-      case 6:
         scrollToProgress(1.0);
         break;
     }
@@ -87,35 +82,29 @@ export default function App() {
           onExploreClick={() => handleNavigateEnv(2)}
         />
 
-        {/* ENVIRONMENT 02: THE CREATIVE MIND */}
-        <Env02CreativeMindOverlay
+        {/* ENVIRONMENT 02: SELECTED WORK */}
+        <Env03SelectedWorkOverlay
           opacity={op2}
+          onSelectProject={(id) => setSelectedProjectId(id)}
           onNextClick={() => handleNavigateEnv(3)}
         />
 
-        {/* ENVIRONMENT 03: SELECTED WORK */}
-        <Env03SelectedWorkOverlay
-          opacity={op3}
-          onSelectProject={(id) => setSelectedProjectId(id)}
-          onNextClick={() => handleNavigateEnv(4)}
-        />
-
-        {/* ENVIRONMENT 04: SERVICES */}
+        {/* ENVIRONMENT 03: SERVICES */}
         <Env04ServicesOverlay
-          opacity={op4}
-          onNextClick={() => handleNavigateEnv(5)}
+          opacity={op3}
+          onNextClick={() => handleNavigateEnv(4)}
           onSelectService={handleOpenInquiryForService}
         />
 
-        {/* ENVIRONMENT 05: ABOUT EVORIQUE */}
+        {/* ENVIRONMENT 04: ABOUT EVORIQUE */}
         <Env05AboutOverlay
-          opacity={op5}
-          onNextClick={() => handleNavigateEnv(6)}
+          opacity={op4}
+          onNextClick={() => handleNavigateEnv(5)}
         />
 
-        {/* ENVIRONMENT 06: THE DESTINATION */}
+        {/* ENVIRONMENT 05: THE DESTINATION */}
         <Env06ContactOverlay
-          opacity={op6}
+          opacity={op5}
           onOpenInquiry={() => {
             setPreselectedService(undefined);
             setInquiryModalOpen(true);

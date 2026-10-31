@@ -13,7 +13,7 @@ export const Env06ContactOverlay: React.FC<Env06Props> = ({
   onOpenInquiry,
   onRestartClick
 }) => {
-  const env = CANVAS_ENVIRONMENTS[5];
+  const env = CANVAS_ENVIRONMENTS.find((e) => e.id === 5) || CANVAS_ENVIRONMENTS[4];
   const [copied, setCopied] = useState(false);
 
   if (opacity <= 0.01) return null;

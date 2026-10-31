@@ -13,7 +13,7 @@ export const Env04ServicesOverlay: React.FC<Env04Props> = ({
   onNextClick,
   onSelectService
 }) => {
-  const env = CANVAS_ENVIRONMENTS[3];
+  const env = CANVAS_ENVIRONMENTS.find((e) => e.id === 3) || CANVAS_ENVIRONMENTS[2];
   if (opacity <= 0.01) return null;
 
   return (

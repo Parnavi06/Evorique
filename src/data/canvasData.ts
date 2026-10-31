@@ -19,63 +19,52 @@ export const CANVAS_ENVIRONMENTS: CanvasEnvironment[] = [
     headline: "Every great thing starts as an idea.",
     description: "Welcome to Evorique. An independent digital universe where architectural form, thoughtful engineering, and creative courage converge.",
     focalPrompt: "Scroll to enter the portal",
-    progressRange: [0.0, 0.18],
+    progressRange: [0.0, 0.22],
     cameraTargetZ: 14.0
   },
   {
     id: 2,
-    depthCode: "DEPTH 02 // THE CREATIVE MIND",
-    title: "THE CREATIVE MIND",
-    subtitle: "Philosophy & Imagination",
-    headline: "Imagination is architectural. We structure chaos into form.",
-    description: "We believe good design isn't decoration; it's intention. From foundational strategy to tactile interaction, we strip away the superfluous until only the essential gesture remains.",
-    focalPrompt: "Traverse the conservatory rotunda",
-    progressRange: [0.18, 0.36],
-    cameraTargetZ: -4.0
-  },
-  {
-    id: 3,
-    depthCode: "DEPTH 03 // SELECTED WORK",
+    depthCode: "DEPTH 02 // SELECTED WORK",
     title: "SELECTED WORK",
     subtitle: "The Portfolio Exhibition",
     headline: "Selected works. Proof of intention.",
     description: "Explore our curated digital products, spatial identities, and interactive research initiatives. Each project is crafted with deliberate care.",
     focalPrompt: "Enter the crystalline aperture",
-    progressRange: [0.36, 0.54],
-    cameraTargetZ: -22.0
+    progressRange: [0.22, 0.44],
+    cameraTargetZ: 0.0
   },
   {
-    id: 4,
-    depthCode: "DEPTH 04 // SERVICES",
+    id: 3,
+    depthCode: "DEPTH 03 // SERVICES",
     title: "SERVICES",
     subtitle: "Disciplines & Craft",
     headline: "End-to-end craft across physical and digital frontiers.",
     description: "We partner with visionary founders and established brands to build enduring identities, tactile web experiences, and high-performance applications.",
     focalPrompt: "Pass through the marble doorway",
-    progressRange: [0.54, 0.72],
-    cameraTargetZ: -40.0
+    progressRange: [0.44, 0.65],
+    cameraTargetZ: -18.0
   },
   {
-    id: 5,
-    depthCode: "DEPTH 05 // ABOUT EVORIQUE",
+    id: 4,
+    depthCode: "DEPTH 04 // ABOUT EVORIQUE",
     title: "ABOUT EVORIQUE",
     subtitle: "Studio Identity",
     headline: "Small studio. Big ideas.",
     description: "We are an independent, senior-led creative studio. When you work with us, you collaborate directly with the designers and engineers who craft the work.",
     focalPrompt: "Ascend to the summit horizon",
-    progressRange: [0.72, 0.88],
-    cameraTargetZ: -58.0
+    progressRange: [0.65, 0.84],
+    cameraTargetZ: -36.0
   },
   {
-    id: 6,
-    depthCode: "DEPTH 06 // THE DESTINATION",
+    id: 5,
+    depthCode: "DEPTH 05 // THE DESTINATION",
     title: "THE DESTINATION",
     subtitle: "Collaborate",
     headline: "Have an idea? Let's make it matter.",
     description: "Every journey begins with a conversation. Tell us about your ambition and let's craft an enduring digital experience together.",
     focalPrompt: "Start a conversation",
-    progressRange: [0.88, 1.0],
-    cameraTargetZ: -76.0
+    progressRange: [0.84, 1.0],
+    cameraTargetZ: -54.0
   }
 ];
 

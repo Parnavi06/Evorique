@@ -8,7 +8,7 @@ interface Env05Props {
 }
 
 export const Env05AboutOverlay: React.FC<Env05Props> = ({ opacity, onNextClick }) => {
-  const env = CANVAS_ENVIRONMENTS[4];
+  const env = CANVAS_ENVIRONMENTS.find((e) => e.id === 4) || CANVAS_ENVIRONMENTS[3];
   if (opacity <= 0.01) return null;
 
   return (
