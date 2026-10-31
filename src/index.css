@@ -4,19 +4,19 @@
 
 @layer base {
   :root {
-    --bg-ivory: #F4F1E9;
-    --bg-porcelain: #E8E7E0;
-    --bg-warm-white: #FAF9F6;
-    --text-charcoal: #252824;
-    --text-stone: #777970;
-    --accent-champagne: #B69A70;
-    --accent-sage: #9CA995;
-    --accent-taupe: #C9C1B3;
+    --bg-ivory: #F4F1EA;
+    --bg-stone: #E5E0D6;
+    --bg-white: #FFFFFF;
+    --text-ink: #242520;
+    --text-taupe: #B7B5AA;
+    --accent-sage: #84958B;
+    --border-gallery: #DCD7CE;
   }
 
   html {
     scroll-behavior: smooth;
     background-color: var(--bg-ivory);
+    color: var(--text-ink);
   }
 
   body {
@@ -25,62 +25,48 @@
     width: 100%;
     min-height: 100vh;
     background-color: var(--bg-ivory);
-    color: var(--text-charcoal);
-    font-family: 'Inter', 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--text-ink);
+    font-family: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Custom architectural scrollbar */
+  /* Minimal gallery scrollbar */
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #E8E7E0;
+    background: #F4F1EA;
   }
   ::-webkit-scrollbar-thumb {
-    background: #C9C1B3;
-    border-radius: 2px;
+    background: #DCD7CE;
+    border-radius: 3px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #B69A70;
+    background: #B7B5AA;
   }
 }
 
 .font-editorial {
-  font-family: 'Cormorant Garamond', 'Instrument Serif', Georgia, serif;
+  font-family: 'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
 }
 
 .font-body {
-  font-family: 'Inter', 'Manrope', system-ui, sans-serif;
+  font-family: 'Manrope', 'Inter', system-ui, sans-serif;
 }
 
-/* Subtle architectural grain */
-.grain-overlay {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.025'/%3E%3C/svg%3E");
+/* Gallery paper texture / grain */
+.gallery-grain {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
 }
 
-/* Architectural glass styling */
-.glass-panel {
-  background: rgba(244, 241, 233, 0.78);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(201, 193, 179, 0.45);
-}
-
-.glass-pill {
-  background: rgba(250, 249, 246, 0.88);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(201, 193, 179, 0.55);
-}
-
-/* Champagne glow indicator */
-@keyframes subtle-pulse {
-  0% { transform: scale(0.98); opacity: 0.85; }
-  50% { transform: scale(1.04); opacity: 1; }
-  100% { transform: scale(0.98); opacity: 0.85; }
-}
-
-.pulse-glow {
-  animation: subtle-pulse 3.5s infinite ease-in-out;
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

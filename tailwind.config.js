@@ -7,26 +7,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        evorique: {
-          ivory: '#F4F1E9',      // Primary ivory
-          porcelain: '#E8E7E0',  // Porcelain
-          warmWhite: '#FAF9F6',  // Warm white
-          charcoal: '#252824',   // Deep charcoal
-          stone: '#777970',      // Stone grey
-          champagne: '#B69A70',  // Champagne
-          sage: '#9CA995',       // Muted sage
-          taupe: '#C9C1B3',      // Soft taupe
-          dark: '#181A18',
-          border: 'rgba(119, 121, 112, 0.22)'
+        gallery: {
+          ivory: '#F4F1EA',
+          stone: '#E5E0D6',
+          white: '#FFFFFF',
+          taupe: '#B7B5AA',
+          ink: '#242520',
+          sage: '#84958B',
+          border: '#DCD7CE',
         }
       },
       fontFamily: {
-        serif: ['"Cormorant Garamond"', '"Instrument Serif"', 'Georgia', 'serif'],
-        sans: ['"Inter"', '"Manrope"', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Instrument Serif"', '"Cormorant Garamond"', 'Georgia', 'serif'],
+        serif: ['"Instrument Serif"', '"Cormorant Garamond"', 'Georgia', 'serif'],
+        sans: ['"Manrope"', '"Inter"', 'system-ui', '-apple-system', 'sans-serif'],
       },
       letterSpacing: {
-        'ultra-wide': '0.25em',
-        'mega-wide': '0.35em'
+        'ultra-wide': '0.22em',
+        'mega-wide': '0.32em'
       }
     },
   },
