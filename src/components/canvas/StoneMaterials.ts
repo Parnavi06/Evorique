@@ -59,10 +59,10 @@ export function useStoneMaterials() {
       map: limestoneColor,
       normalMap: limestoneNormal,
       roughnessMap: limestoneRoughness,
-      normalScale: new THREE.Vector2(0.35, 0.35),
-      color: '#F4F1EA',
-      roughness: 0.78,
-      metalness: 0.02
+      normalScale: new THREE.Vector2(0.45, 0.45),
+      color: '#FFFFFF',
+      roughness: 0.72,
+      metalness: 0.04
     });
   }, [limestoneColor, limestoneNormal, limestoneRoughness]);
 
@@ -73,10 +73,10 @@ export function useStoneMaterials() {
       normalMap: travertineNormal,
       roughnessMap: travertineRoughness,
       aoMap: travertineAO,
-      aoMapIntensity: 0.8,
-      normalScale: new THREE.Vector2(0.4, 0.4),
-      color: '#E6E1D7',
-      roughness: 0.82,
+      aoMapIntensity: 1.0,
+      normalScale: new THREE.Vector2(0.5, 0.5),
+      color: '#FFFFFF',
+      roughness: 0.76,
       metalness: 0.03
     });
   }, [travertineColor, travertineNormal, travertineRoughness, travertineAO]);

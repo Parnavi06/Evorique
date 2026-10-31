@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 
 interface ArchitecturalEnvironmentProps {
@@ -14,6 +14,16 @@ export function ArchitecturalEnvironment({
 }: ArchitecturalEnvironmentProps) {
   // Load the professionally modeled architectural promenade and pool coping GLB
   const { scene } = useGLTF('/models/architecture/promenade.glb');
+
+  // Load the photorealistic master coastal architectural vista
+  const markVistaTex = useTexture('/scenes/state_01_the_mark.jpg');
+
+  useMemo(() => {
+    if (markVistaTex) {
+      markVistaTex.colorSpace = THREE.SRGBColorSpace;
+      markVistaTex.anisotropy = 16;
+    }
+  }, [markVistaTex]);
 
   // Clone scene and configure stone materials and shadow reception
   const promenadeScene = useMemo(() => {
@@ -40,7 +50,19 @@ export function ArchitecturalEnvironment({
         </mesh>
       ))}
 
-      {/* 3. Soft Distant Horizon Plinth (Z = -38.0 in warm morning mist) */}
+      {/* 3. Photorealistic Mediterranean Coastal Archipelago Panorama (Framed behind portal) */}
+      <group position={[0, 8.5, -6.5]}>
+        <mesh>
+          <planeGeometry args={[46, 25]} />
+          <meshBasicMaterial
+            map={markVistaTex}
+            transparent
+            opacity={0.96}
+          />
+        </mesh>
+      </group>
+
+      {/* 4. Soft Distant Horizon Plinth (Z = -38.0 in warm morning mist) */}
       <group position={[0, 0.8, -38.0]}>
         <mesh receiveShadow>
           <boxGeometry args={[92, 1.6, 2.0]} />
@@ -56,3 +78,4 @@ export function ArchitecturalEnvironment({
 }
 
 useGLTF.preload('/models/architecture/promenade.glb');
+useTexture.preload('/scenes/state_01_the_mark.jpg');
