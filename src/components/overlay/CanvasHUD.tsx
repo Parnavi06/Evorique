@@ -26,7 +26,7 @@ export const CanvasHUD: React.FC<CanvasHUDProps> = ({
         <div className="flex items-center gap-4 sm:gap-6">
           <button
             onClick={() => onNavigateEnv(1)}
-            className="font-sans font-medium text-lg sm:text-xl tracking-[0.16em] uppercase text-[#242520] hover:opacity-70 transition-opacity focus:outline-none"
+            className="font-sans font-medium text-lg sm:text-xl tracking-[0.08em] uppercase text-[#242520] hover:opacity-70 transition-opacity focus:outline-none"
             aria-label="Evorique Home"
           >
             EVORIQUE
